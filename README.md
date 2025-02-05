@@ -46,3 +46,122 @@ No external dependencies are required. Simply clone this repository and run the 
 git clone https://github.com/yourusername/Piero-EnDe-Coder.git
 cd Piero-EnDe-Coder
 python Piero-EnDe-Coder.py
+```
+
+---
+
+## Usage
+
+### Running the Program
+
+Run the script using:
+
+```bash
+python Piero-EnDe-Coder.py
+```
+
+You'll see a menu like this:
+
+```plaintext
+*****************************
+      PIERO ENDE-CODER       
+*****************************
+Instructions:
+  - This tool encrypts and decrypts messages using the Vigenère Cipher
+    combined with XOR encryption.
+  - You will need to enter a **secret key** for encryption and decryption.
+
+Choose an option:
+  [1] Encrypt a message
+  [2] Decrypt a message
+  [3] Exit
+*****************************
+```
+
+### Encrypt a Message
+
+1. Select **Option 1**.
+2. Enter a **secret key** (used for encryption and decryption).
+3. Enter the text to encrypt.
+4. Receive the **encrypted message**.
+
+### Decrypt a Message
+
+1. Select **Option 2**.
+2. Enter the **same secret key** used for encryption.
+3. Enter the **encrypted text**.
+4. Receive the **decrypted message**.
+
+### Exit
+
+- Select **Option 3** to exit the program.
+
+---
+
+## Encryption & Decryption Process
+
+| Step | Encryption                                   | Decryption                                   |
+|------|----------------------------------------------|----------------------------------------------|
+| 1    | **Vigenère Cipher** shifts text with key     | **Reverse Vigenère Cipher** restores text    |
+| 2    | **XOR Encryption** scrambles data with key   | **XOR Decryption** reverses the transformation |
+| 3    | **Base64 Encoding** makes text safe for storage | **Base64 Decoding** restores encrypted text |
+
+---
+
+## Example Usage
+
+### Encryption Example:
+
+```
+Enter the secret key: secret123
+Enter the text to encrypt: Hello World
+```
+
+**Output (Encrypted Text):**
+
+```
+UGFr... (Base64 Encoded String)
+```
+
+### Decryption Example:
+
+```
+Enter the secret key: secret123
+Enter the encrypted text: UGFr...
+```
+
+**Output (Decrypted Text):**
+
+```
+Hello World
+```
+
+---
+
+## Technical Details
+
+- **Programming Language**: Python 3  
+- **Encryption Methods**:
+  - Vigenère Cipher (Key-based shift cipher)
+  - XOR Cipher (Bitwise transformation)
+  - Base64 Encoding (Safe text encoding)
+
+### Functions Overview:
+
+| Function                         | Purpose                                         |
+|----------------------------------|-------------------------------------------------|
+| `xor_encrypt(text, key)`         | Applies XOR encryption to text                  |
+| `vigenere_cipher(text, key, encrypt=True)` | Encrypts/decrypts using the Vigenère cipher |
+| `vigenere_encode(text, key)`     | Encrypts using Vigenère, XOR, and Base64        |
+| `vigenere_decode(text, key)`     | Decrypts by reversing Base64, XOR, and Vigenère |
+| `print_menu()`                   | Displays the main menu                          |
+| `main()`                         | Runs the interactive command-line interface     |
+
+---
+
+## License
+
+This project is **open-source** and free to use.  
+Licensed under the [MIT License](LICENSE).
+
+---
