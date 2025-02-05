@@ -56,8 +56,29 @@ Piero EnDe-Coder is a powerful text encryption tool that enhances security throu
 ---
 
 ## **🖥 Example Usage**
-```bash
+```bash 
 Choose an option (1: Encode, 2: Decode): 1
 Enter the key: Secret123
 Enter the text: Hello, world!
 Encoded Text: Xy3F#*vN9aB7r$%L0!...
+```
+## **⚡ Installation**
+```bash
+Clone the repository and compile the C++ code:
+git clone https://github.com/yourusername/Piero-EnDe-Coder.git
+cd Piero-EnDe-Coder
+g++ -o encoder encoder.cpp
+./encoder
+```
+
+## **🛡️ Security Notes**
+Always use a strong key to maximize security.
+The same key must be used for encoding and decoding.
+Each encoding session generates unique random padding to prevent pattern detection.
+The encryption is highly resistant to frequency analysis attacks.
+
+## **📝 License**
+This project is open-source and licensed under the MIT License.
+
+## **🤝 Contributing**
+Have ideas to improve security? Submit a pull request or open an issue!
