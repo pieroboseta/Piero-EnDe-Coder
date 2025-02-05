@@ -1,111 +1,202 @@
-#include <iostream>
-#include <string>
-#include <cctype>
-#include <cstdlib>
-#include <ctime>
-#include <algorithm>
-#include <vector>
+import random
 
-std::string generateRandomString(int length) {
-    std::string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    std::string result;
-    for (int i = 0; i < length; ++i) {
-        result += characters[rand() % characters.size()];
-    }
-    return result;
-}
+import base64
 
-std::string xorEncrypt(const std::string &text, char key) {
-    std::string encryptedText = text;
-    for (char &c : encryptedText) {
-        c ^= key;
-    }
-    return encryptedText;
-}
 
-std::string vigenereEncode(const std::string &text, const std::string &key) {
-    std::string encodedText;
-    int keyLength = key.length();
-    int keyIndex = 0;
-    char xorKey = rand() % 256;
-    
-    for (char c : text) {
-        if (std::isalpha(c)) {
-            char base = std::isupper(c) ? 'A' : 'a';
-            char keyChar = std::toupper(key[keyIndex % keyLength]) - 'A';
-            encodedText += (c - base + keyChar) % 26 + base;
-            keyIndex++;
-        } else {
-            encodedText += c;
-        }
-    }
-    
-    encodedText = xorEncrypt(encodedText, xorKey);
-    
-    std::string randomPrefix = generateRandomString(150);
-    std::string randomSuffix = generateRandomString(100);
-    
-    encodedText = randomPrefix + encodedText + randomSuffix;
-    std::random_shuffle(encodedText.begin(), encodedText.end());
-    
-    return encodedText + xorKey;
-}
 
-std::string vigenereDecode(std::string text, const std::string &key) {
-    char xorKey = text.back();
-    text.pop_back();
-    
-    std::random_shuffle(text.begin(), text.end());
-    
-    std::string extractedText = text.substr(150, text.length() - 250);
-    extractedText = xorEncrypt(extractedText, xorKey);
-    
-    std::string decodedText;
-    int keyLength = key.length();
-    int keyIndex = 0;
-    
-    for (char c : extractedText) {
-        if (std::isalpha(c)) {
-            char base = std::isupper(c) ? 'A' : 'a';
-            char keyChar = std::toupper(key[keyIndex % keyLength]) - 'A';
-            decodedText += (c - base - keyChar + 26) % 26 + base;
-            keyIndex++;
-        } else {
-            decodedText += c;
-        }
-    }
-    return decodedText;
-}
+def xor_encrypt(text: str, key: int) -> str:
 
-int main() {
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    std::string choice, key, text;
+    """Encrypts or decrypts text using a single-character XOR key."""
+
+    return ''.join(chr(ord(c) ^ key) for c in text)
+
+
+
+def vigenere_cipher(text: str, key: str, encrypt=True) -> str:
+
+    """Encrypts or decrypts text using the Vigenère cipher."""
+
+    result = []
+
+    key_length = len(key)
+
     
-    std::cout << "Choose an option (1: Encode, 2: Decode): ";
-    std::cin >> choice;
+
+    for i, c in enumerate(text):
+
+        if c.isalpha():
+
+            base = ord('A') if c.isupper() else ord('a')
+
+            key_char = ord(key[i % key_length].upper()) - ord('A')
+
+            shift = key_char if encrypt else -key_char
+
+            result.append(chr((ord(c) - base + shift) % 26 + base))
+
+        else:
+
+            result.append(c)  # Keep symbols and spaces unchanged
+
+
+
+    return ''.join(result)
+
+
+
+def vigenere_encode(text: str, key: str) -> str:
+
+    """Applies Vigenère cipher first, then XOR encryption, then encodes in Base64."""
+
+    xor_key = random.randint(1, 255)  # Generate a random XOR key
+
+    vigenere_text = vigenere_cipher(text, key, encrypt=True)
+
+    encrypted_text = xor_encrypt(vigenere_text, xor_key)
+
+
+
+    # Encode to Base64 to avoid non-printable characters messing things up
+
+    encoded_message = base64.urlsafe_b64encode((chr(xor_key) + encrypted_text).encode()).decode()
+
     
-    if (choice == "1") {
-        std::cout << "Enter the key: ";
-        std::cin >> key;
-        std::cin.ignore();
-        std::cout << "Enter the text: ";
-        std::getline(std::cin, text);
-        std::string encodedText = vigenereEncode(text, key);
-        std::cout << "Encoded Text: " << encodedText << std::endl;
-    } else if (choice == "2") {
-        std::cout << "Enter the key: ";
-        std::cin >> key;
-        std::cin.ignore();
-        std::cout << "Enter the encoded text: ";
-        std::getline(std::cin, text);
-        if (text.length() < 250) {
-            std::cerr << "Encoded text is too short. Exiting." << std::endl;
-            return 1;
-        }
-        std::string decodedText = vigenereDecode(text, key);
-        std::cout << "Decoded Text: " << decodedText << std::endl;
-    } else {
-        std::cerr << "Invalid choice." << std::endl;
-    }
-    return 0;
-}
+
+    return encoded_message
+
+
+
+def vigenere_decode(text: str, key: str) -> str:
+
+    """Decodes Base64, applies XOR decryption first, then Vigenère decryption."""
+
+    if not text:
+
+        return "Error: Encrypted text is empty."
+
+    
+
+    try:
+
+        # Decode from Base64 first
+
+        decoded_text = base64.urlsafe_b64decode(text).decode()
+
+    except Exception:
+
+        return "Error: Invalid encrypted text format."
+
+
+
+    xor_key = ord(decoded_text[0])  # Extract the XOR key
+
+    encrypted_text = decoded_text[1:]  # Remove the first character (XOR key)
+
+
+
+    decrypted_text = xor_encrypt(encrypted_text, xor_key)  
+
+    original_text = vigenere_cipher(decrypted_text, key, encrypt=False)  
+
+
+
+    return original_text
+
+
+
+def print_menu():
+
+    """Displays a simple, user-friendly menu."""
+
+    print("\n*****************************")
+
+    print("      PIERO ENDE-CODER       ")
+
+    print("*****************************")
+
+    print("Instructions:")
+
+    print("  - This tool encrypts and decrypts messages using the Vigenère Cipher")
+
+    print("    combined with XOR encryption.")
+
+    print("  - You will need to enter a **secret key** for encryption and decryption.")
+
+    print("\nChoose an option:")
+
+    print("  [1] Encrypt a message")
+
+    print("  [2] Decrypt a message")
+
+    print("  [3] Exit")
+
+    print("*****************************")
+
+
+
+if __name__ == "__main__":
+
+    while True:
+
+        print_menu()
+
+        choice = input("Enter your choice (1/2/3): ").strip()
+
+        
+
+        if choice == "1":
+
+            print("\nEncryption Mode:")
+
+            key = input("Enter the secret key: ").strip()
+
+            text = input("Enter the text to encrypt: ").strip()
+
+            encoded_text = vigenere_encode(text, key)
+
+            
+
+            print("\nEncryption Successful!")
+
+            print("Encrypted Message:")
+
+            print(encoded_text)
+
+
+
+        elif choice == "2":
+
+            print("\nDecryption Mode:")
+
+            key = input("Enter the secret key: ").strip()
+
+            text = input("Enter the encrypted text: ").strip()
+
+            decoded_text = vigenere_decode(text, key)
+
+            
+
+            print("\nDecryption Successful!")
+
+            print("Decrypted Message:")
+
+            print(decoded_text)
+
+
+
+        elif choice == "3":
+
+            print("\nExiting program. Goodbye!")
+
+            break  # Exit the loop safely
+
+
+
+        else:
+
+            print("\nInvalid choice! Please select 1, 2, or 3.")
+
+
+
+        input("\nPress Enter to continue...")  # Pause before repeating
+
