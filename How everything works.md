@@ -14,8 +14,11 @@ The Vigenère cipher is a method of encrypting text by using a repeating key to 
 3. Shift each letter in the plaintext forward by the corresponding letter in the key (where A=0, B=1, ..., Z=25).
 
 #### **Formula**
-\[ C_i = (P_i + K_i) \mod 26 \]
-where \( P_i \) is the plaintext character, \( K_i \) is the key character shift, and \( C_i \) is the encrypted character.
+$$
+C_i = (P_i + K_i) \mod 26
+$$
+
+**where $$\( P_i \)$$  is the plaintext character, $$\( K_i \)$$ is the key character shift, and $$\( C_i \)$$ is the encrypted character.**
 
 #### **Example Calculation in Table Format**
 | Plaintext  | H  | E  | L  | L  | O  |
@@ -30,8 +33,13 @@ Thus, "HELLO" encrypts to "RIJVS" using the key "KEYKE".
 XOR encryption is a binary operation that flips bits using a key. Each character is XORed with a random single-byte key.
 
 #### **Formula**
-\[ C_i = P_i \oplus K \]
-where \( \oplus \) is the XOR operation.
+$$
+C_i = P_i \oplus K
+$$
+
+**where $\oplus$ represents the XOR operation.**
+
+
 
 #### **Example Calculation in Table Format**
 | Plaintext (ASCII) | H    | E    | L    | L    | O    |
