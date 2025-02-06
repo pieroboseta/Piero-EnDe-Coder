@@ -1,4 +1,4 @@
-# 🔐Piero EnDe-Coder
+# 🔐 Piero EnDe-Coder
 
 A powerful encryption and decryption tool that combines the **Vigenère cipher**, **XOR encryption**, and **Base64 encoding** to secure messages. This tool allows users to encode and decode messages using a secret key, ensuring an extra layer of security.
 
