@@ -1,6 +1,6 @@
 **PIERO ENDE-CODER: DETAILED ANALYSIS**
 
-## Overview
+# Overview
 Piero EnDe-Coder is an encryption system that combines **Vigenère Cipher**, **XOR Encryption**, and **Base64 Encoding** to secure text messages. This system uses a multi-layer approach where each method builds upon the previous one to enhance security. Below is a step-by-step breakdown of how each encoding method works, complete with visual examples to make it easy to understand.
 
 ## Encryption Process Breakdown
@@ -13,7 +13,7 @@ The Vigenère cipher is a method of encrypting text by using a repeating key to 
 2. Write your **key** repeatedly underneath the message so that each letter is aligned.
 3. Shift each letter in the plaintext forward by the corresponding letter in the key (where A=0, B=1, ..., Z=25).
 
-#### **Formula**
+### **Formula:**
 $$
 C_i = (P_i + K_i) \mod 26
 $$
@@ -32,7 +32,7 @@ Thus, "HELLO" encrypts to "RIJVS" using the key "KEYKE".
 ### **2. XOR Encryption**
 XOR encryption is a binary operation that flips bits using a key. Each character is XORed with a random single-byte key.
 
-#### **Formula**
+### **Formula:**
 $$
 C_i = P_i \oplus K
 $$
@@ -54,7 +54,7 @@ Thus, "HELLO" encrypts to "R_VVU" using an XOR key of 26.
 ### **3. Base64 Encoding**
 Base64 is not encryption but a way to ensure data is printable and safe for transmission.
 
-#### **Formula**
+### **Formula:**
 Base64 encoding splits binary data into **6-bit groups**, then maps them to the Base64 character set.
 
 #### **Example Calculation in Table Format**
