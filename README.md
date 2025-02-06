@@ -1,8 +1,8 @@
-# Piero EnDe-Coder
+# 🔐Piero EnDe-Coder
 
 A powerful encryption and decryption tool that combines the **Vigenère cipher**, **XOR encryption**, and **Base64 encoding** to secure messages. This tool allows users to encode and decode messages using a secret key, ensuring an extra layer of security.
 
-## Features
+## ⚙️ Features
 
 ✔ Uses **Vigenère cipher** for initial encryption  
 ✔ Applies **XOR encryption** with a randomly generated key  
@@ -12,7 +12,7 @@ A powerful encryption and decryption tool that combines the **Vigenère cipher**
 
 ---
 
-## Table of Contents
+## 📚 Table of Contents
 
 - [How It Works](#how-it-works)
 - [Installation](#installation)
@@ -24,7 +24,7 @@ A powerful encryption and decryption tool that combines the **Vigenère cipher**
 
 ---
 
-## How It Works
+## 💡 How It Works
 
 Piero EnDe-Coder follows a **three-layered encryption process**:
 
@@ -38,7 +38,7 @@ For decryption, the process is reversed:
 
 ---
 
-## Installation
+## 🛠️ Installation
 
 No external dependencies are required. Simply clone this repository and run the script.
 
@@ -60,7 +60,7 @@ Every contribution is greatly appreciated! Thank you for your support. 🙌
 
 ---
 
-## Usage
+## 👨‍💻 Usage
 
 ### Running the Program
 
@@ -169,7 +169,7 @@ Hello World
 
 ---
 
-## License
+## 📝 License
 
 This project is **open-source** and free to use.  
 Licensed under the [MIT License](LICENSE).
