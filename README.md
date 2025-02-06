@@ -118,7 +118,7 @@ Choose an option:
 
 ---
 
-## 🧩Example Usage
+## 🧩 Example Usage
 
 ### Encryption Example:
 
