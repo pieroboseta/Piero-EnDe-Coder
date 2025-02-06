@@ -1,0 +1,165 @@
+# Piero-EnDe-Coder: Encryption and Decryption Tool
+
+## Overview
+The **Piero-EnDe-Coder** is a Python-based encryption and decryption tool that combines two cryptographic techniques: the **Vigenère Cipher** and **XOR encryption**. The tool also uses **Base64 encoding** to ensure that the encrypted message is safe for transmission and storage. Below is a detailed breakdown of how the code works, its efficiency, safety, and the time it would take to crack the encryption.
+
+---
+
+## Encryption Process
+
+The encryption process involves three main steps:
+1. **Vigenère Cipher** encryption.
+2. **XOR encryption** with a random key.
+3. **Base64 encoding** of the final encrypted message.
+
+### Step-by-Step Encryption Process
+
+| Step | Description | Example |
+|------|-------------|---------|
+| 1. **Vigenère Cipher** | The input text is encrypted using the Vigenère Cipher with a user-provided key. | `Text: "HELLO", Key: "KEY" → Encrypted: "RIJVS"` |
+| 2. **XOR Encryption** | The Vigenère-encrypted text is further encrypted using XOR with a randomly generated key (1-255). | `Text: "RIJVS", XOR Key: 42 → Encrypted: "x^_^"` |
+| 3. **Base64 Encoding** | The XOR-encrypted text is encoded in Base64 to ensure it is safe for transmission. | `Text: "x^_^" → Base64: "eF5fXg=="` |
+
+---
+
+## Decryption Process
+
+The decryption process is the reverse of the encryption process:
+1. **Base64 decoding** of the encrypted message.
+2. **XOR decryption** using the extracted key.
+3. **Vigenère Cipher** decryption with the user-provided key.
+
+### Step-by-Step Decryption Process
+
+| Step | Description | Example |
+|------|-------------|---------|
+| 1. **Base64 Decoding** | The Base64-encoded message is decoded back to its original form. | `Base64: "eF5fXg==" → Text: "x^_^"` |
+| 2. **XOR Decryption** | The XOR-encrypted text is decrypted using the extracted key. | `Text: "x^_^", XOR Key: 42 → Decrypted: "RIJVS"` |
+| 3. **Vigenère Decryption** | The Vigenère-encrypted text is decrypted using the user-provided key. | `Text: "RIJVS", Key: "KEY" → Decrypted: "HELLO"` |
+
+---
+
+## How Each Encryption Method Works
+
+### 1. Vigenère Cipher
+The Vigenère Cipher is a method of encrypting alphabetic text by using a simple form of polyalphabetic substitution. It uses a keyword to shift letters in the plaintext.
+
+- **Encryption Formula**: 
+  \[
+  C = (P + K) \mod 26
+  \]
+  Where:
+  - \(C\) = Ciphertext letter
+  - \(P\) = Plaintext letter
+  - \(K\) = Key letter
+
+- **Decryption Formula**:
+  \[
+  P = (C - K) \mod 26
+  \]
+
+#### Example:
+| Plaintext | Key | Ciphertext |
+|-----------|-----|------------|
+| H         | K   | R         |
+| E         | E   | I         |
+| L         | Y   | J         |
+| L         | K   | V         |
+| O         | E   | S         |
+
+### 2. XOR Encryption
+XOR encryption is a simple symmetric encryption method that uses the XOR (exclusive OR) operation to encrypt and decrypt data. It works by applying the XOR operation between each character of the text and a key.
+
+- **Encryption/Decryption Formula**:
+  \[
+  C = P \oplus K
+  \]
+  Where:
+  - \(C\) = Ciphertext character
+  - \(P\) = Plaintext character
+  - \(K\) = Key character
+
+#### Example:
+| Plaintext | XOR Key | Ciphertext |
+|-----------|---------|------------|
+| R         | 42      | x         |
+| I         | 42      | ^         |
+| J         | 42      | _         |
+| V         | 42      | ^         |
+| S         | 42      | x         |
+
+### 3. Base64 Encoding
+Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It is used to ensure that the encrypted message can be safely transmitted or stored without issues related to non-printable characters.
+
+- **Encoding Process**:
+  - Converts binary data into a string of ASCII characters.
+  - Uses a 64-character alphabet (A-Z, a-z, 0-9, '+', '/').
+
+#### Example:
+| XOR-Encrypted Text | Base64 Encoded |
+|--------------------|----------------|
+| x^_^               | eF5fXg==       |
+
+---
+
+## Efficiency and Safety
+
+### Efficiency
+- **Vigenère Cipher**: The Vigenère Cipher is efficient for small to medium-sized texts but can be slow for very large texts due to its polyalphabetic nature.
+- **XOR Encryption**: XOR encryption is extremely fast and efficient, as it only involves a single operation per character.
+- **Base64 Encoding**: Base64 encoding is efficient but adds some overhead due to the conversion process.
+
+### Safety
+- **Vigenère Cipher**: The Vigenère Cipher is relatively safe for short texts but can be cracked using frequency analysis or the Kasiski method for longer texts.
+- **XOR Encryption**: XOR encryption is weak on its own, as it can be easily cracked with a brute-force attack, especially if the key is short or predictable.
+- **Base64 Encoding**: Base64 is not an encryption method; it is only used for encoding. It does not provide any security.
+
+### Combined Safety
+The combination of the Vigenère Cipher and XOR encryption adds a layer of complexity, making it harder to crack. However, the overall security is still limited by the strength of the XOR key (which is only 8 bits in this case). A brute-force attack on the XOR key would take at most 255 attempts, which is trivial for modern computers.
+
+---
+
+## Time to Crack the Code
+
+### Brute-Force Attack on XOR Key
+- **XOR Key Space**: 255 possible keys (1-255).
+- **Time to Crack**: On a modern computer, it would take less than a second to brute-force the XOR key.
+
+### Brute-Force Attack on Vigenère Cipher
+- **Key Space**: Depends on the length of the Vigenère key. For a key of length \(n\), the key space is \(26^n\).
+- **Time to Crack**: For a key length of 5, the key space is \(26^5 = 11,881,376\). On a modern computer, this could take a few seconds to minutes to crack using brute force.
+
+### Combined Attack
+- **Total Key Space**: \(255 \times 26^n\).
+- **Time to Crack**: For a key length of 5, the total key space is \(255 \times 11,881,376 = 3,029,750,880\). This would take a few hours to crack on a modern computer.
+
+---
+
+## Conclusion
+
+The **Piero-EnDe-Coder** provides a basic level of encryption by combining the Vigenère Cipher and XOR encryption. While it is efficient and easy to use, its security is limited, especially against brute-force attacks. For stronger encryption, consider using more advanced cryptographic techniques such as AES or RSA.
+
+---
+
+## Tables and Graphics
+
+### Encryption Process Flowchart
+```plaintext
+Plaintext → Vigenère Cipher → XOR Encryption → Base64 Encoding → Encrypted Message
+```
+
+### Decryption Process Flowchart
+```plaintext
+Encrypted Message → Base64 Decoding → XOR Decryption → Vigenère Decryption → Plaintext
+```
+
+### Key Space Comparison
+| Encryption Method | Key Space | Time to Crack (Brute-Force) |
+|-------------------|-----------|-----------------------------|
+| XOR Encryption    | 255       | < 1 second                  |
+| Vigenère Cipher   | \(26^n\)  | Seconds to minutes          |
+| Combined          | \(255 \times 26^n\) | Hours                     |
+
+---
+
+This markdown document provides a comprehensive overview of the **Piero-EnDe-Coder** tool, its encryption methods, and its security implications. You can paste this directly into a GitHub repository for easy reference.
