@@ -108,7 +108,7 @@ Choose an option:
 
 ---
 
-## Encryption & Decryption Process
+## 📌 Encryption & Decryption Process
 
 | Step | Encryption                                   | Decryption                                   |
 |------|----------------------------------------------|----------------------------------------------|
@@ -118,7 +118,7 @@ Choose an option:
 
 ---
 
-## Example Usage
+## 🧩Example Usage
 
 ### Encryption Example:
 
@@ -148,7 +148,7 @@ Hello World
 
 ---
 
-## Technical Details
+## 🧐 Technical Details
 
 - **Programming Language**: Python 3  
 - **Encryption Methods**:
@@ -156,7 +156,7 @@ Hello World
   - XOR Cipher (Bitwise transformation)
   - Base64 Encoding (Safe text encoding)
 
-### Functions Overview:
+### 🔎 Functions Overview:
 
 | Function                         | Purpose                                         |
 |----------------------------------|-------------------------------------------------|
